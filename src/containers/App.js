@@ -36,9 +36,9 @@ class App extends Component {
         { /* ConnectedRouter will use the store from Provider automatically */}
         <ConnectedRouter history={history}>
         <div>
-              <Route exact path="/" component={CoinDetail} />
-              <Route path="/table" component={CoinTable} />
-              <Route path="/detail" component={CoinDetail} />
+              <Route exact path="/watchmycoin/" component={CoinDetail} />
+              <Route path="/watchmycoin/table" component={CoinTable} />
+              <Route path="/watchmycoin/detail" component={CoinDetail} />
         </div>
         </ConnectedRouter>
       </Provider>

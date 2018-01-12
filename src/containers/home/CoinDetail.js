@@ -25,6 +25,7 @@ class CoinDetail extends Component {
     dispatch(initSocket(socket))
 
     socket.on('message', (res) => {
+      console.log("HERE")
       console.log(res)
     })
 
