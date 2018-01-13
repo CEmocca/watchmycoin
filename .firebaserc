@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "watchmycoin",
+    "watchmycoin": "watchmycoin"
+  }
+}

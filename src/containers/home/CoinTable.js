@@ -15,7 +15,7 @@ export default class CoinTable extends Component {
 
     return (
       <div>
-        SSSS
+        SSSSAAA
         <Table>
           {/* https://codesandbox.io/s/github/reactjs/redux/tree/master/examples/todomvc */}
         </Table>

@@ -1,54 +1,69 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Table from 'react-materialize'
-import io from 'socket.io-client';
-
-import { initSocket } from '../../actions/action'
+import { Table, Button } from 'react-materialize'
+import { bindActionCreators } from 'redux'
+import * as Actions from '../../actions/action'
 import { BITFINEX_SOCKET_URL } from '../../constants/Url'
 import { TRADES_CHANNEL, TICKER_CHANNEL, BTCUSD_PAIR } from '../../constants/BitfinexTypes'
 
-// @connect(packagesSelector)
-let socket
-const mapStateToProps = (state = {}) => {
-	// console.dir(state)
-    return {...state}
+const mapStateToProps = (state) => {
+  console.log('wut:', state)
+  return {
+    sockets: state.sockets
+  }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(Actions, dispatch),
+    addNewSocket: (msg, url) => dispatch(Actions.initSocket(msg, url))
+  };
+};
 
 class CoinDetail extends Component {
 
   constructor(props) {
     super(props)
-    const { dispatch } = this.props
-    //    dispatch(loadInitialData())
-    socket = io.connect(BITFINEX_SOCKET_URL)
-    console.log(socket)
-    dispatch(initSocket(socket))
 
-    socket.on('message', (res) => {
-      console.log("HERE")
-      console.log(res)
+    // socket.onmessage = (res) => {
+    //   console.log("HERE 1")
+    //   console.log(res.data)
+    // }
+    // socket2.onmessage = (res) => {
+    //   console.log("HERE 2")
+    //   console.log(res.data)
+    // }
+
+    this.addSymbol = this.addSymbol.bind(this)
+  }
+
+  addSymbol(symbol) {
+    let msg = {
+        event: 'subscribe',
+        channel: TICKER_CHANNEL,
+        symbol: `t${symbol}`
+    }
+
+    this.props.addNewSocket(msg, BITFINEX_SOCKET_URL)
+    this.setState({
+      somewhat: symbol
     })
-
-    let request = JSON.stringify({
-      event: 'subscribe',
-      channel: TICKER_CHANNEL,
-      symbol: `t${BTCUSD_PAIR}`
-    })
-
-    socket.on('open', () => socket.send(request))
   }
 
   componentWillUnmount() {
-    socket.disconnect()
-    alert("Disconnecting Socket as component will unmount")
+    let sockets = this.state.sockets
+    sockets.foreach(s => s.disconnect())
   }
 
   render() {
-    const {dispatch} = this.props
+    const {sockets} = this.props
+    console.log(sockets)
     return (
       <div>
-        CoinDetail
-            {/* <Table> */}
+      
+        <Button waves='light' onClick={() => this.addSymbol('XRPUSD')}>Add XRP</Button>
+        <Button waves='light' onClick={() => this.addSymbol('OMGUSD')}>Add OMG</Button>
+        {/* <Table> */}
         {/* https://codesandbox.io/s/github/reactjs/redux/tree/master/examples/todomvc */}
         {/* </Table> */}
       </div>
@@ -56,4 +71,4 @@ class CoinDetail extends Component {
   }
 }
 
-export default connect(mapStateToProps)(CoinDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(CoinDetail)

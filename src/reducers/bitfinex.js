@@ -1,26 +1,21 @@
 import { XRPUSD_PAIR, ETHUSD_PAIR, BTCUSD_PAIR } from '../constants/BitfinexTypes'
+import _ from 'lodash'
 
-const initialState = [
-    {
-        symbols: [XRPUSD_PAIR, ETHUSD_PAIR, BTCUSD_PAIR]
-    }
-]
+const initialSocketState = []
 
-const reducer = (state = initialState, action) => {
-    switch(action.type) {
-        case 'ADD_SYMBOL':
-            return {
+export default (state = initialSocketState, action) => {
+    switch (action.type) {
+        case 'ADD_SOCKET':
+            console.log(action)
+            console.log(state.sockets)
+            // let newSockets = 
+            return [
                 ...state,
-                symbols: state.symbols.push(action.symbol)
-            }
-        case 'REMOVE_SYMBOL':
-            return {
-                ...state,
-                symbols: state.symbols.filter(s => s !== action.symbol)
-            }
+                {socket: action.socket, symbol: action.symbol}
+            ]
+        case 'REMOVE_SOCKET':
+            return _.without(state.sockets, action.socket)
         default:
             return state
     }
 }
-
-export default reducer;

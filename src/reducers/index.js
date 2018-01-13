@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import bitfinexReducer from './bitfinex'
+import { socketReducer } from './bitfinex'
 
 
 const rootReducer = combineReducers({
-    bitfinexReducer
+    socketReducer
 })
 
 export default rootReducer
