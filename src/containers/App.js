@@ -5,8 +5,8 @@ import { ConnectedRouter, routerReducer } from 'react-router-redux'
 import { store, history } from '../store/coinDataStore'
 import logo from './logo.svg'
 import './App.css'
-import CoinDetail from './home/coinDetail'
-import CoinTable from './home/coinTable'
+import CoinDetail from './home/coinDetailContainer'
+import CoinView from './home/coinViewContainer'
 
 // import { App, Home, Foo, Bar } from './components'
 
@@ -17,8 +17,8 @@ class App extends Component {
       <Provider store={store}>
         <ConnectedRouter history={history}>
             <div>
-                <Route exact path="/" component={CoinTable} />
-                <Route exact path="/all" component={CoinTable} />
+                <Route exact path="/" component={CoinView} />
+                <Route exact path="/all" component={CoinView} />
                 <Route path="/watch" component={CoinDetail} />
             </div>
         </ConnectedRouter>

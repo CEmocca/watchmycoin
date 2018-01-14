@@ -15,10 +15,10 @@
 //     res: res
 // })
 
-export const addSocket = (socket, symbol) => ({
+export const addSocket = (socket, msg) => ({
     type: 'ADD_SOCKET',
     socket: socket,
-    symbol: symbol
+    msg: msg
 })
 
 export const removeSocket = (socket) => ({
@@ -30,13 +30,13 @@ export const removeSocket = (socket) => ({
 /* Async Action using - Sockets													   */
 /***************************************************************************************** */
 
-export const initSocket = (msg, socketUrl) => {
+export const initSocket = (msg, socketUrl, callback) => {
+    console.log(msg)
     return (dispatch) => {
         let socket = new WebSocket(socketUrl)
-
-        // socket.onopen = () => socket.send(msg)
-        console.log(socket)
-        dispatch(addSocket(socket, msg.symbol))
+        socket.onmessage = (res) => callback(res)
+        socket.onopen = () => socket.send(JSON.stringify(msg))
+        dispatch(addSocket(socket, msg))
     }
 }
 

@@ -7,7 +7,7 @@ export default (state = initialSocketState, action) => {
         case 'ADD_SOCKET':
             return [
                 ...state,
-                {socket: action.socket, symbol: action.symbol}
+                {socket: action.socket, msg: action.msg}
             ]
         case 'REMOVE_SOCKET':
             // return _.without(state.sockets, action.socket) // TODO: Change this

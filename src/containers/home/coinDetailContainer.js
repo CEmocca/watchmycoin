@@ -6,7 +6,20 @@ import * as Actions from '../../actions/action'
 import { BITFINEX_SOCKET_URL } from '../../constants/url'
 import { TRADES_CHANNEL, TICKER_CHANNEL, BTCUSD_PAIR } from '../../constants/bitfinexTypes'
 
-class CoinTable extends Component {
+const mapStateToProps = (state) => {
+  return {
+    sockets: state.sockets
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(Actions, dispatch),
+    addNewSocket: (msg, url) => dispatch(Actions.initSocket(msg, url))
+  };
+};
+
+class CoinDetail extends Component {
 
   constructor(props) {
     super(props)
@@ -54,17 +67,4 @@ class CoinTable extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    sockets: state.sockets
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(Actions, dispatch),
-    addNewSocket: (msg, url) => dispatch(Actions.initSocket(msg, url))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CoinTable)
+export default connect(mapStateToProps, mapDispatchToProps)(CoinDetail)
