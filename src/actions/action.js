@@ -33,8 +33,9 @@ export const removeSocket = (socket) => ({
 export const initSocket = (msg, socketUrl) => {
     return (dispatch) => {
         let socket = new WebSocket(socketUrl)
-console.log('call me dudde')
+
         // socket.onopen = () => socket.send(msg)
+        console.log(socket)
         dispatch(addSocket(socket, msg.symbol))
     }
 }

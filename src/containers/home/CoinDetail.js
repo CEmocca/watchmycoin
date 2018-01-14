@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Table, Button } from 'react-materialize'
 import { bindActionCreators } from 'redux'
 import * as Actions from '../../actions/action'
-import { BITFINEX_SOCKET_URL } from '../../constants/Url'
-import { TRADES_CHANNEL, TICKER_CHANNEL, BTCUSD_PAIR } from '../../constants/BitfinexTypes'
+import { BITFINEX_SOCKET_URL } from '../../constants/url'
+import { TRADES_CHANNEL, TICKER_CHANNEL, BTCUSD_PAIR } from '../../constants/bitfinexTypes'
 
 const mapStateToProps = (state) => {
   console.log('wut:', state)
