@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
-import bitfinexReducer from './bitfinex'
+import sockets from './socketReducer'
+import { routerReducer } from 'react-router-redux'
 
 
 const rootReducer = combineReducers({
-    bitfinexReducer
+    sockets,
+    routerReducer
 })
 
 export default rootReducer
